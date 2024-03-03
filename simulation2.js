@@ -47,10 +47,19 @@ function getNextLocation() {
     return location;
 }
 
+// Get license from command-line argument
+const license = process.argv[2];
+
+// Check if license is provided
+if (!license) {
+    console.error('License not provided. Please provide the license as a command-line argument.');
+    process.exit(1);
+}
+
 // Simulate sending data at regular intervals
 setInterval(() => {
     const location = getNextLocation();
-    const data = { location, velocity: Math.random() * 100, license: 'abc-124' };
+    const data = { location, license };
     console.log('Sending data:', data);
     sendData(data);
 }, 5000); // Send data every 5 seconds

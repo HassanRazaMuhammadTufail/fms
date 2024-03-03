@@ -23,7 +23,6 @@ export class TrackingService {
       throw new BadRequestException('vehicle not found');
     }
     // console.log({
-    //   velocity: createTrackingDto.velocity,
     //   vehicle: vehicle._id,
     //   location: {
     //     type: 'Point',
@@ -34,7 +33,6 @@ export class TrackingService {
     //   },
     // });
     const createdTracking = new this.trackingModel({
-      velocity: createTrackingDto.velocity,
       vehicle: vehicle._id,
       location: {
         type: 'Point',

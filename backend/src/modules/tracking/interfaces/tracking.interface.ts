@@ -6,7 +6,6 @@ export interface ITracking extends Document {
     type: string;
     coordinates: number[];
   };
-  readonly velocity: string;
 }
 export interface IVehicle extends Document {
   readonly img: string;

@@ -1,16 +1,19 @@
 import * as mongoose from 'mongoose';
 
-const LocationSchema = new mongoose.Schema({
-  type: {
-    type: String,
-    enum: ['Point'], // Ensure the type is Point
-    required: true,
+const LocationSchema = new mongoose.Schema(
+  {
+    type: {
+      type: String,
+      enum: ['Point'], // Ensure the type is Point
+      required: true,
+    },
+    coordinates: {
+      type: [Number], // Array of numbers [longitude, latitude]
+      required: true,
+    },
   },
-  coordinates: {
-    type: [Number], // Array of numbers [longitude, latitude]
-    required: true,
-  },
-});
+  { _id: false },
+);
 
 export const TrackingSchema = new mongoose.Schema(
   {
@@ -20,7 +23,6 @@ export const TrackingSchema = new mongoose.Schema(
       required: true,
     },
     location: LocationSchema,
-    velocity: { type: String },
   },
   { timestamps: true },
 );

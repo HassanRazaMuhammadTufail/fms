@@ -2,6 +2,15 @@
 
 const http = require('http');
 
+// Get license from command-line argument
+const license = process.argv[2];
+
+// Check if license is provided
+if (!license) {
+    console.error('License not provided. Please provide the license as a command-line argument.');
+    process.exit(1);
+}
+
 // Function to generate random data
 function generateData() {
     const location = {
@@ -10,7 +19,7 @@ function generateData() {
     };
     const speed = Math.random() * 100;
 
-    return { location, velocity: speed, license: 'String' };
+    return { location, license };
 }
 
 // Function to send data to the backend server
