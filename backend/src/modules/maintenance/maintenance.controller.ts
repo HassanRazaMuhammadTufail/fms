@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
 import { CreateMaintenanceDto } from './dto/maintenance.dto';
 import { MaintenanceService } from './maintenance.service';
 import { IMaintenance } from './interfaces/maintenance.interface';
@@ -15,5 +15,12 @@ export class MaintenanceController {
   @Get()
   async findAll(): Promise<IMaintenance[]> {
     return this.maintenanceService.findAll();
+  }
+
+  @Get('/:license')
+  async getByLicenseNumber(
+    @Param('license') license: string,
+  ): Promise<IMaintenance> {
+    return this.maintenanceService.findOne(license);
   }
 }

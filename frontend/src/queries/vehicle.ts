@@ -36,4 +36,17 @@ const useGetVehicle = () =>
 		}).then((resp) => resp.json())
 	);
 
-export { useAddVehicle, useGetVehicle };
+const useGetVehicleByLicense = () =>
+	useMutation(
+		async ({ license }: {license: string; }) => 
+			fetch(`${process.env.REACT_APP_SERVER_URL}/vehicles/${license}`, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+			}).then((resp) => resp.json())
+	);
+
+
+export { useAddVehicle, useGetVehicle, useGetVehicleByLicense };

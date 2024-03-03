@@ -35,4 +35,16 @@ const useGetMaintenance = () =>
 		}).then((resp) => resp.json())
 	);
 
-export { useAddMaintenance, useGetMaintenance };
+const useGetMaintenanceByLicense = () =>
+	useMutation(
+		async ({ license }: {license: string; }) => 
+			fetch(`${process.env.REACT_APP_SERVER_URL}/maintenance/${license}`, {
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					Accept: "application/json",
+				},
+			}).then((resp) => resp.json())
+	);
+
+export { useAddMaintenance, useGetMaintenance, useGetMaintenanceByLicense };

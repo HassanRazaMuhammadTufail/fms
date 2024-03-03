@@ -35,4 +35,12 @@ export class MaintenanceService {
   async findAll(): Promise<IMaintenance[]> {
     return this.maintenanceModel.find().populate('vehicle').exec();
   }
+
+  async findOne(license: string): Promise<IMaintenance> {
+    const vehicle = await this.vehicleModel.findOne({ license }).exec();
+    return this.maintenanceModel
+      .findOne({ vehicle: vehicle._id })
+      .populate('vehicle')
+      .exec();
+  }
 }

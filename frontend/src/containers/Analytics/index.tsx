@@ -2,14 +2,16 @@ import React from "react";
 import { Box, TextField, Typography, Button } from "@mui/material";
 // import AutoHeightGrid from "../../components/Table";
 import DataTable from "../../components/Table";
-import { useGetMaintenance } from "../../queries/maintenance";
+import { useGetMaintenance, useGetMaintenanceByLicense } from "../../queries/maintenance";
 import { useGetVehicle } from "../../queries/vehicle";
 
 function Analytics() {
 	const { data: vehicleData } = useGetVehicle();
 	const { data: maintenanceData } = useGetMaintenance();
+	const getMaintenanceByLicense = useGetMaintenanceByLicense();
 	const [vehicleRows, setVehicleRows] = React.useState([]);
 	const [maintenanceRows, setMaintenanceRows] = React.useState([]);
+	const [license, setLicense] = React.useState("");
 	const vehicleColumns = [
 		{field: "name", headerName: "Name", width: 175 },
 		{field: "license", headerName: "License", width: 175 },
@@ -46,6 +48,14 @@ function Analytics() {
 			}));
 		}
 	}, []);
+
+	const handleChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+		setLicense(e.target.value);
+	};
+
+	const handleSubmit = () => {
+		getMaintenanceByLicense.mutateAsync({license}).then(d=>console.log(d));
+	};
 	return (
 		<Box width="100%" display="flex" flexDirection="column" alignItems="center">
 			<Typography variant="h3" padding="5px">
@@ -61,6 +71,7 @@ function Analytics() {
 				<Typography variant="h4">Vehicle</Typography>
 				<Box width="100%" padding="10px 2%">
 					<TextField
+						onChange={handleChange}
 						label="License no."
 						size="small"
 						placeholder="E.g. ABC-100"
@@ -76,6 +87,7 @@ function Analytics() {
 							padding: "6px 0",
 							width: "25%",
 						}}
+						onClick={handleSubmit}
 					>
             Search
 					</Button>
@@ -94,6 +106,7 @@ function Analytics() {
 				<Typography variant="h4">Maintenance</Typography>
 				<Box width="100%" padding="10px 2%">
 					<TextField
+						onChange={handleChange}
 						label="License no."
 						size="small"
 						placeholder="E.g. ABC-100"
@@ -109,6 +122,7 @@ function Analytics() {
 							padding: "6px 0",
 							width: "25%",
 						}}
+						onClick={handleSubmit}
 					>
             Search
 					</Button>
