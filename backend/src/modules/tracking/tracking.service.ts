@@ -1,4 +1,4 @@
-import mongoose, { Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { Injectable, Inject, BadRequestException } from '@nestjs/common';
 import { ITracking, IVehicle } from './interfaces/tracking.interface';
 import { CreateTrackingDto } from './dto/tracking.dto';
