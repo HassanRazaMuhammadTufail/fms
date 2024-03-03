@@ -13,8 +13,8 @@ export class VehiclesService {
 
   async create(createVehicleDto: CreateVehicleDto): Promise<IVehicle> {
     // console.log(createVehicleDto)
-    const createdVehicle = new this.vehicleModel(createVehicleDto);
-    return createdVehicle.save();
+    const createdVehicle = this.vehicleModel.create(createVehicleDto);
+    return createdVehicle;
   }
 
   async findAll(): Promise<IVehicle[]> {
