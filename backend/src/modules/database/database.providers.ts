@@ -6,7 +6,7 @@ export const databaseProviders = [
     provide: constants.DATABASE_CONNECTION,
     useFactory: (): Promise<typeof mongoose> =>
       mongoose.connect(
-        'mongodb+srv://admin:admin@cluster0.9vu0qtk.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',
+        `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_INITDB_HOST}:${process.env.MONGO_INITDB_PORT}/${process.env.MONGO_INITDB_DATABASE}`,
       ),
   },
 ];
