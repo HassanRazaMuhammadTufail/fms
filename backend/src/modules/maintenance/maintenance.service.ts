@@ -21,7 +21,6 @@ export class MaintenanceService {
         license: createMaintenanceDto.license,
       })
       .exec();
-    // return;
     const createdMaintenance = this.maintenanceModel.create({
       type: createMaintenanceDto.type,
       cost: createMaintenanceDto.cost,

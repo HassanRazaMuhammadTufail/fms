@@ -9,7 +9,6 @@ export class VehiclesController {
 
   @Post()
   async create(@Body() createVehicleDto: CreateVehicleDto) {
-    console.log(createVehicleDto);
     return this.vehiclesService.create(createVehicleDto);
   }
 

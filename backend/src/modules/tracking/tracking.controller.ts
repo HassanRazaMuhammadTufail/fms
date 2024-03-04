@@ -9,7 +9,6 @@ export class TrackingController {
 
   @Post()
   async create(@Body() createTrackingDto: CreateTrackingDto) {
-    console.log(createTrackingDto);
     return this.trackingService.create(createTrackingDto);
   }
 

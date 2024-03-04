@@ -28,16 +28,7 @@ export class TrackingService {
     if (!vehicle) {
       throw new BadRequestException('vehicle not found');
     }
-    // console.log({
-    //   vehicle: vehicle._id,
-    //   location: {
-    //     type: 'Point',
-    //     coordinates: [
-    //       createTrackingDto.location.lng,
-    //       createTrackingDto.location.lat,
-    //     ],
-    //   },
-    // });
+
     const createdTracking = this.trackingModel.create({
       vehicle: vehicle._id,
       location: {

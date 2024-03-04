@@ -214,7 +214,7 @@ describe('TrackingService', () => {
   it('should return analytics data', async () => {
     const currentDate = new Date();
 
-    // Add 1 hour to the current date
+    // Add 1 min to the current date
     currentDate.setMinutes(currentDate.getMinutes() + 1);
     jest.spyOn(vehicleModel, 'findOne').mockReturnValue({
       exec: jest.fn().mockResolvedValueOnce({

@@ -12,7 +12,6 @@ export class VehiclesService {
   ) {}
 
   async create(createVehicleDto: CreateVehicleDto): Promise<IVehicle> {
-    // console.log(createVehicleDto)
     const createdVehicle = this.vehicleModel.create(createVehicleDto);
     return createdVehicle;
   }
