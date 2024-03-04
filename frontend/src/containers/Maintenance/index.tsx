@@ -10,7 +10,7 @@ const MaintenanceLogValidationSchema = Yup.object().shape({
 	company: Yup.string().required("Required"),
 	cost: Yup.string().required("Required"),
 	mileage: Yup.string().required("Required"),
-	description: Yup.string().required("Required"),
+	description: Yup.string(),
 });
 
 function Maintenance() {
@@ -25,6 +25,8 @@ function Maintenance() {
 			description: "",
 		},
 		validationSchema: MaintenanceLogValidationSchema,
+		validateOnChange: false,
+		validateOnBlur: false,
 		onSubmit: (values) => {
 			console.log(values);
 			addMaintenanceLog
@@ -35,6 +37,7 @@ function Maintenance() {
 				})
 				.then((data) => {
 					console.log(data);
+					formik.resetForm();
 				})
 				.catch((error) => {
 					console.log(error);
@@ -48,8 +51,9 @@ function Maintenance() {
 					<Typography variant="h2">Add Maintenance Log</Typography>
 				</Box>
 				<Box padding="4px">
-					<p>Vehicle License No.</p>
+					<p>Vehicle License No.<sup style={{color:"#ff0000"}}>*</sup></p>
 					<TextField
+						size='small'
 						fullWidth
 						name="license"
 						value={formik.values.license}
@@ -57,8 +61,9 @@ function Maintenance() {
 					/>
 				</Box>
 				<Box padding="4px">
-					<p>Maintenance Type</p>
+					<p>Maintenance Type<sup style={{color:"#ff0000"}}>*</sup></p>
 					<TextField
+						size='small'
 						fullWidth
 						name="type"
 						value={formik.values.type}
@@ -66,8 +71,9 @@ function Maintenance() {
 					/>
 				</Box>
 				<Box padding="4px">
-					<p>Cost</p>
+					<p>Cost<sup style={{color:"#ff0000"}}>*</sup></p>
 					<TextField
+						size='small'
 						fullWidth
 						name="cost"
 						value={formik.values.cost}
@@ -75,8 +81,9 @@ function Maintenance() {
 					/>
 				</Box>
 				<Box padding="4px">
-					<p>Mileage</p>
+					<p>Mileage<sup style={{color:"#ff0000"}}>*</sup></p>
 					<TextField
+						size='small'
 						fullWidth
 						name="mileage"
 						value={formik.values.mileage}
@@ -84,8 +91,9 @@ function Maintenance() {
 					/>
 				</Box>
 				<Box padding="4px">
-					<p>Company Name</p>
+					<p>Company Name<sup style={{color:"#ff0000"}}>*</sup></p>
 					<TextField
+						size='small'
 						fullWidth
 						name="company"
 						value={formik.values.company}
@@ -95,6 +103,7 @@ function Maintenance() {
 				<Box padding="4px">
 					<p>Description</p>
 					<TextField
+						size='small'
 						fullWidth
 						name="description"
 						value={formik.values.description}
@@ -114,6 +123,7 @@ function Maintenance() {
 						variant="outlined"
 						sx={{ margin: "15px 10px", width: "40%" }}
 						color="error"
+						onClick={() => formik.resetForm()}
 					>
             Clear
 					</Button>

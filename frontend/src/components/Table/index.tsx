@@ -1,15 +1,29 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridRowParams } from "@mui/x-data-grid";
 
-const DataTable = ({columns, rows}:{columns: { field: string; headerName: string; width: number; }[]; rows: {[key: string]:string}[]; }) => {
+const DataTable = ({columns, rows, onRowClick}:{columns: { field: string; headerName: string; width: number; }[]; rows: {[key: string]:string}[]; onRowClick?: (e: GridRowParams<any>) => void }) => {
 	return (
-		<Box sx={{ width: "96%", height: "200px" }}>
+		<Box sx={{ 
+			width: "96%",
+			height: "200px",
+			"& .MuiDataGrid-columnHeaders":{
+				background:"#efefef",
+			},
+			"& .table-cell": {
+				justifyContent: "center",
+			}
+		}}>
 			<DataGrid
 				autoHeight
 				rows={rows}
 				columns={columns}
 				hideFooter
+				getRowClassName={(params) => {
+					console.log(params);
+					return "";
+				}}
+				onRowClick={onRowClick && onRowClick}
 			/>
 		</Box>
 	);

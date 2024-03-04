@@ -27,6 +27,7 @@ export class MaintenanceService {
       cost: createMaintenanceDto.cost,
       mileage: createMaintenanceDto.mileage,
       company: createMaintenanceDto.company,
+      description: createMaintenanceDto.description,
       vehicle: vehicle._id,
     });
     return createdMaintenance.save();

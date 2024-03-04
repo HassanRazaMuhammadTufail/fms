@@ -16,3 +16,12 @@ export interface IVehicle extends Document {
   readonly ownerId: string;
   readonly vehicleModel: string;
 }
+
+export interface IMaintenance extends Document {
+  readonly company: string;
+  readonly type: string;
+  readonly cost: string;
+  readonly mileage: string;
+  readonly description: string;
+  readonly vehicle: string | IVehicle;
+}

@@ -27,6 +27,8 @@ function Registration() {
 			ownerId: "",
 		},
 		validationSchema: VehicleRegistrationSchema,
+		validateOnChange: false,
+		validateOnBlur: false,
 		onSubmit: (values) => {
 			console.log(values);
 			addVehicle
@@ -37,6 +39,7 @@ function Registration() {
 				})
 				.then((data) => {
 					console.log(data);
+					formik.resetForm();
 				})
 				.catch((error) => {
 					console.log(error);
@@ -53,25 +56,25 @@ function Registration() {
 					{formik.values.img ? (
 						<img
 							src={formik.values.img}
-							width="90%"
+							width="494px"
 							height="250px"
 							style={{
-								border: "4px #f2f2f2 solid",
-								borderRadius: "25px",
-								boxShadow: "0px 0px 8px 0px #c4c4c4",
+								border: "1px #fafafa solid",
+								borderRadius: "10px",
+								boxShadow: "0px 0px 8px 0px #ebebeb",
 								textAlignLast: "center",
 							}}
 						/>
 					) : (
 						<Box
-							width="90%"
+							width="494px"
 							height="250px"
 							margin="0 auto"
 							sx={{
-								background: "#f2f2f2",
-								border: "4px #f2f2f2 solid",
-								borderRadius: "25px",
-								boxShadow: "0px 0px 8px 0px #c4c4c4",
+								background: "#fafafa",
+								border: "1px #fafafa solid",
+								borderRadius: "10px",
+								boxShadow: "0px 0px 8px 0px #ebebeb",
 								display: "flex",
 								flexDirection: "column",
 								justifyContent: "center",
@@ -87,6 +90,8 @@ function Registration() {
 				<Box padding="4px">
 					{/* <p>Vehicle Image</p> */}
 					<TextField
+						error={!!formik.errors.img}
+						size="small"
 						fullWidth
 						name="img"
 						value={formik.values.img}
@@ -94,8 +99,10 @@ function Registration() {
 					/>
 				</Box>
 				<Box padding="4px">
-					<p>Name</p>
+					<p>Name<sup style={{color:"#ff0000"}}>*</sup></p>
 					<TextField
+						error={!!formik.errors.name}
+						size="small"
 						fullWidth
 						name="name"
 						value={formik.values.name}
@@ -103,8 +110,10 @@ function Registration() {
 					/>
 				</Box>
 				<Box padding="4px">
-					<p>Type</p>
+					<p>Type<sup style={{color:"#ff0000"}}>*</sup></p>
 					<TextField
+						error={!!formik.errors.type}
+						size="small"
 						fullWidth
 						name="type"
 						value={formik.values.type}
@@ -112,8 +121,10 @@ function Registration() {
 					/>
 				</Box>
 				<Box padding="4px">
-					<p>License No.</p>
+					<p>License No.<sup style={{color:"#ff0000"}}>*</sup></p>
 					<TextField
+						error={!!formik.errors.license}
+						size="small"
 						fullWidth
 						name="license"
 						value={formik.values.license}
@@ -121,8 +132,10 @@ function Registration() {
 					/>
 				</Box>
 				<Box padding="4px">
-					<p>Company</p>
+					<p>Company<sup style={{color:"#ff0000"}}>*</sup></p>
 					<TextField
+						error={!!formik.errors.company}
+						size="small"
 						fullWidth
 						name="company"
 						value={formik.values.company}
@@ -130,8 +143,10 @@ function Registration() {
 					/>
 				</Box>
 				<Box padding="4px">
-					<p>Model</p>
+					<p>Model<sup style={{color:"#ff0000"}}>*</sup></p>
 					<TextField
+						error={!!formik.errors.vehicleModel}
+						size="small"
 						fullWidth
 						name="vehicleModel"
 						value={formik.values.vehicleModel}
@@ -139,8 +154,10 @@ function Registration() {
 					/>
 				</Box>
 				<Box padding="4px">
-					<p>Owner ID</p>
+					<p>Owner ID<sup style={{color:"#ff0000"}}>*</sup></p>
 					<TextField
+						error={!!formik.errors.ownerId}
+						size="small"
 						fullWidth
 						name="ownerId"
 						value={formik.values.ownerId}
@@ -159,6 +176,7 @@ function Registration() {
 						variant="outlined"
 						sx={{ margin: "15px 10px", width: "40%" }}
 						color="error"
+						onClick={() => formik.resetForm()}
 					>
             Clear
 					</Button>

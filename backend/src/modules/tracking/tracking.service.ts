@@ -1,6 +1,10 @@
 import { Model } from 'mongoose';
 import { Injectable, Inject, BadRequestException } from '@nestjs/common';
-import { ITracking, IVehicle } from './interfaces/tracking.interface';
+import {
+  IMaintenance,
+  ITracking,
+  IVehicle,
+} from './interfaces/tracking.interface';
 import { CreateTrackingDto } from './dto/tracking.dto';
 import constants from '../../../constants';
 
@@ -11,6 +15,8 @@ export class TrackingService {
     private trackingModel: Model<ITracking>,
     @Inject(constants.VEHICLE_MODEL)
     private vehicleModel: Model<IVehicle>,
+    @Inject(constants.MAINTENANCE_MODEL)
+    private maintenanceModel: Model<IMaintenance>,
   ) {}
 
   async create(createTrackingDto: CreateTrackingDto): Promise<ITracking> {
@@ -103,7 +109,8 @@ export class TrackingService {
     return timeDifference_seconds;
   }
 
-  async getTravlledDistanceAndTime(license: string): Promise<{
+  async getTraveledDistanceAndTime(license: string): Promise<{
+    maintenanceLogs: IMaintenance[];
     totalDistance: number;
     totalTime: number;
     averageVelocity: number;
@@ -231,6 +238,9 @@ export class TrackingService {
     if (!vehicle) {
       throw new BadRequestException('vehicle not found');
     }
+    const maintenanceLogs = await this.maintenanceModel
+      .find({ vehicle: vehicle._id })
+      .exec();
     const pipeline: any[] = [
       {
         $match: { vehicle: vehicle._id },
@@ -266,15 +276,8 @@ export class TrackingService {
     const averageVelocity = (
       totalDistance / this.calculateTimeDifferenceInSeconds(timestamps)
     ).toFixed(2);
-    // console.log(
-    //   timestamps,
-    //   coordinates,
-    //   totalDistance,
-    //   this.calculateTimeDifferenceInSeconds(timestamps),
-    //   (totalDistance * 1000) /
-    //     this.calculateTimeDifferenceInSeconds(timestamps),
-    // );
     return {
+      maintenanceLogs,
       totalDistance: Number(totalDistance) || 0,
       totalTime: Number(totalTime) || 0,
       averageVelocity: Number(averageVelocity) || 0,
