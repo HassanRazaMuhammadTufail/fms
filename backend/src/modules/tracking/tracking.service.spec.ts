@@ -212,6 +212,10 @@ describe('TrackingService', () => {
   });
 
   it('should return analytics data', async () => {
+    const currentDate = new Date();
+
+    // Add 1 hour to the current date
+    currentDate.setHours(currentDate.getHours() + 1);
     jest.spyOn(vehicleModel, 'findOne').mockReturnValue({
       exec: jest.fn().mockResolvedValueOnce({
         ...mockVehicle,
@@ -225,15 +229,24 @@ describe('TrackingService', () => {
     jest.spyOn(model, 'aggregate').mockResolvedValueOnce([
       {
         _id: null,
-        coordinates: [],
+        coordinates: [
+          {
+            coordinates: [25.1227603, 55.1874264],
+            createdAt: new Date(),
+          },
+          {
+            coordinates: [25.1179019, 55.1997397],
+            createdAt: currentDate,
+          },
+        ],
       },
     ]);
     const analytics = await service.getTraveledDistanceAndTime('abc-123');
     expect(analytics).toEqual({
       maintenanceLogs: maintenanceArrayExpected,
-      totalDistance: 0,
-      totalTime: 0,
-      averageVelocity: 0,
+      totalDistance: 1403.47,
+      totalTime: 3600,
+      averageVelocity: 0.39,
     });
   });
 });
