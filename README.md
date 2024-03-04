@@ -40,6 +40,17 @@ npm start
 
 After the backend is started you can see swagger on path `/api`
 
+## Simulation
+To add lat lng data using simulation. Register vehicle first, and you will have license no. then
+```bash
+
+*for random lat long data*
+node simulation.js ${YOUR LICENSE NUMBER HERE}
+
+*for pre defined points*
+node simulation2.js ${YOUR LICENSE NUMBER HERE}
+```
+
 ## Tests
 ```bash
 cd ./backend
