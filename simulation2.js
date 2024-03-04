@@ -2,8 +2,10 @@ const http = require('http');
 
 // Custom array of latitude and longitude pairs
 const customLocations = [
-    { lat: 25.1227603, lng: 55.1874264, }, 
-    { lat: 25.1179019, lng: 55.1997397, },
+    { lat: 25.1227603, lng: 55.1874264 }, 
+    { lat: 25.1179019, lng: 55.1997397 },
+    { lat: 25.1159627, lng: 55.1991372 },
+    { lat: 25.1193753, lng: 55.2041625 }
 ];
 
 // Function to send data to the backend server
@@ -13,7 +15,7 @@ function sendData(data) {
     const options = {
         hostname: 'localhost',
         port: 3001,
-        path: '/track',
+        path: '/analytics',
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -31,6 +33,7 @@ function sendData(data) {
 
     req.on('error', (error) => {
         console.error(error);
+        process.exit(1);
     });
 
     req.write(postData);
@@ -43,7 +46,12 @@ let currentIndex = 0;
 // Function to get the next location from the customLocations array
 function getNextLocation() {
     const location = customLocations[currentIndex];
-    currentIndex = (currentIndex + 1) % customLocations.length;
+    if(currentIndex < customLocations.length){
+        currentIndex++
+    } else {
+        process.exit(1);
+    }
+    // currentIndex = (currentIndex + 1) % customLocations.length;
     return location;
 }
 

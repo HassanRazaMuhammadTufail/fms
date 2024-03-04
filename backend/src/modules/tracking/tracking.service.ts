@@ -65,8 +65,8 @@ export class TrackingService {
       );
       totalDistance += distance;
     }
-
-    return totalDistance * 1000;
+    // ATTENTION: REMOVED DISTANCE CONVERSION INTO METERS SO THE UNIT OF DISTANCE IS KILOMETERS
+    return totalDistance;
   }
 
   private calculateDistanceBetweenPoints(

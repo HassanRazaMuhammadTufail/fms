@@ -165,7 +165,7 @@ function Analytics() {
 				<Stack direction='row'>
 					<Box flexGrow='1' height='200px' border='1px solid #f2f2f2' borderRadius='5px' boxShadow='0 0 5px 0 #e0e0e0' margin='5px'>
 						<Typography variant="h5" padding='10px' color='#666'>Distance traveled:</Typography>
-						<Typography variant="h2" color='#666' height='150px' fontSize='60px' display='flex' justifyContent='center' alignItems='center'>{totalDistance}<sub>mtrs</sub></Typography>
+						<Typography variant="h2" color='#666' height='150px' fontSize='60px' display='flex' justifyContent='center' alignItems='center'>{totalDistance}<sub>k.mtrs</sub></Typography>
 					</Box>
 					<Box flexGrow='1' height='200px' border='1px solid #f2f2f2' borderRadius='5px' boxShadow='0 0 5px 0 #e0e0e0' margin='5px'>
 						<Typography variant="h5" padding='10px' color='#666'>Hours operated:</Typography>
@@ -173,7 +173,7 @@ function Analytics() {
 					</Box>
 					<Box flexGrow='1' height='200px' border='1px solid #f2f2f2' borderRadius='5px' boxShadow='0 0 5px 0 #e0e0e0' margin='5px'>
 						<Typography variant="h5" padding='10px' color='#666'>Avg velocity:</Typography>
-						<Typography variant="h2" color='#666' height='150px' fontSize='60px' display='flex' justifyContent='center' alignItems='center'>{averageVelocity}<sub>m/s</sub></Typography>
+						<Typography variant="h2" color='#666' height='150px' fontSize='60px' display='flex' justifyContent='center' alignItems='center'>{averageVelocity}<sub>km/s</sub></Typography>
 					</Box>
 				</Stack>
 				<Box width="100%" padding="10px 2%">

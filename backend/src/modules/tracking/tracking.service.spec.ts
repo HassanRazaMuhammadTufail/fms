@@ -215,7 +215,7 @@ describe('TrackingService', () => {
     const currentDate = new Date();
 
     // Add 1 hour to the current date
-    currentDate.setHours(currentDate.getHours() + 1);
+    currentDate.setMinutes(currentDate.getMinutes() + 1);
     jest.spyOn(vehicleModel, 'findOne').mockReturnValue({
       exec: jest.fn().mockResolvedValueOnce({
         ...mockVehicle,
@@ -244,9 +244,9 @@ describe('TrackingService', () => {
     const analytics = await service.getTraveledDistanceAndTime('abc-123');
     expect(analytics).toEqual({
       maintenanceLogs: maintenanceArrayExpected,
-      totalDistance: 1403.47,
-      totalTime: 3600,
-      averageVelocity: 0.39,
+      totalDistance: 1.4,
+      totalTime: 60,
+      averageVelocity: 0.02,
     });
   });
 });
