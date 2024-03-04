@@ -4,6 +4,22 @@ Developed using TypeScript with React on frontend and Nestjs for backend and Mon
 
 ![Architecture](./Architecture.png)
 
+## Running using docker
+
+### Backend
+```bash
+cd ./backend
+docker-compose up
+```
+Backend will be live on port 3001 with also connected to MongoDB database.
+
+### Frontend
+```bash
+cd ./frontend
+docker-compose up
+```
+Frontend will be live on port 3002
+
 ## Installation
 
 ### Frontend
