@@ -1,13 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { CreateVehicleDto } from './dto/vehicle.dto';
 import { Test, TestingModule } from '@nestjs/testing';
 import { VehiclesController } from './vehicle.controller';
 import { VehiclesService } from './vehicle.service';
 
 describe('VehiclesController', () => {
-  let vehicle: TestingModule;
   let controller: VehiclesController;
-  let service: VehiclesService;
 
   beforeAll(async () => {
     const vehicle: TestingModule = await Test.createTestingModule({
@@ -84,7 +81,6 @@ describe('VehiclesController', () => {
       ],
     }).compile();
     controller = vehicle.get(VehiclesController);
-    service = vehicle.get(VehiclesService);
   });
 
   it('should be defined', () => {

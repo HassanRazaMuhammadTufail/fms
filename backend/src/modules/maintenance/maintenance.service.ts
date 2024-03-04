@@ -22,7 +22,7 @@ export class MaintenanceService {
       })
       .exec();
     // return;
-    const createdMaintenance = new this.maintenanceModel({
+    const createdMaintenance = this.maintenanceModel.create({
       type: createMaintenanceDto.type,
       cost: createMaintenanceDto.cost,
       mileage: createMaintenanceDto.mileage,
@@ -30,7 +30,7 @@ export class MaintenanceService {
       description: createMaintenanceDto.description,
       vehicle: vehicle._id,
     });
-    return createdMaintenance.save();
+    return createdMaintenance;
   }
 
   async findAll(): Promise<IMaintenance[]> {
