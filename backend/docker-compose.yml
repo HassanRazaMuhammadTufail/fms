@@ -10,5 +10,22 @@ services:
       - 27017:27017
     volumes:
       - mongodb_data_cont:/data/db
+  api:
+        build: .
+        environment:
+          MONGO_INITDB_HOST: mongodb-Cont
+          MONGO_INITDB_PORT: 27017
+          MONGO_INITDB_DATABASE: admin
+          MONGO_INITDB_ROOT_USERNAME: admin
+          MONGO_INITDB_ROOT_PASSWORD: password
+          PORT: 3001
+        ports:
+            - 3001:3001
+        volumes:
+            - ./src:/app/src
+        depends_on: 
+            - mongodb-Cont
+        links:
+            - mongodb-Cont
 volumes:
   mongodb_data_cont:
