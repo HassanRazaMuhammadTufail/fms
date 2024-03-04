@@ -2,13 +2,20 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
 	const [value, setValue] = React.useState(0);
 	const navigate = useNavigate();
+	const location = useLocation();
+	React.useEffect(() => {
+		if(location.pathname === "/analytics") {
+			setValue(2);
+		} else if (location.pathname === "/maintenance") {
+			setValue(1);
+		}
+	}, []);
 	const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
-		console.log(newValue);
 		setValue(newValue);
 		switch (newValue) {
 		case 0:

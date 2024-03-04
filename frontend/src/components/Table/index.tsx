@@ -11,7 +11,7 @@ const DataTable = ({columns, rows, onRowClick}:{columns: { field: string; header
 				background:"#efefef",
 			},
 			"& .table-cell": {
-				justifyContent: "center",
+				justifyContent: "center !important",
 			}
 		}}>
 			<DataGrid
@@ -19,10 +19,6 @@ const DataTable = ({columns, rows, onRowClick}:{columns: { field: string; header
 				rows={rows}
 				columns={columns}
 				hideFooter
-				getRowClassName={(params) => {
-					console.log(params);
-					return "";
-				}}
 				onRowClick={onRowClick && onRowClick}
 			/>
 		</Box>
