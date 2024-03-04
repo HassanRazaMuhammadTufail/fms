@@ -2,6 +2,8 @@
 
 Developed using TypeScript with React on frontend and Nestjs for backend and MongoDB as Database.
 
+![Architecture](./Architecture.png)
+
 ## Installation
 
 ### Frontend
