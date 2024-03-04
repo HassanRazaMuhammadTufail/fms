@@ -38,7 +38,7 @@ export class TrackingService {
     //     ],
     //   },
     // });
-    const createdTracking = new this.trackingModel({
+    const createdTracking = this.trackingModel.create({
       vehicle: vehicle._id,
       location: {
         type: 'Point',
@@ -48,7 +48,7 @@ export class TrackingService {
         ],
       },
     });
-    return createdTracking.save();
+    return createdTracking;
   }
 
   private calculateTotalDistance(coordinates: number[][]): number {
@@ -105,8 +105,40 @@ export class TrackingService {
 
     // Convert milliseconds to seconds
     const timeDifference_seconds = timeDifference_ms / 1000;
-
     return timeDifference_seconds;
+  }
+
+  private getFinalizedData(data) {
+    let totalDistance = 0,
+      totalTime = 0,
+      averageVelocity = 0;
+    if (!data || !data[0] || !data[0].coordinates) {
+      return {
+        totalDistance,
+        totalTime,
+        averageVelocity,
+      };
+    }
+    const coordinates = data[0].coordinates.map((elem) => elem.coordinates);
+    const timestamps = data[0].coordinates.map((elem) => elem.createdAt);
+    totalDistance = Number(
+      this.calculateTotalDistance(coordinates).toFixed(2) || 0,
+    );
+    totalTime =
+      timestamps && timestamps.length
+        ? Number(
+            this.calculateTimeDifferenceInSeconds(timestamps).toFixed(2) || 0,
+          )
+        : 0;
+    averageVelocity =
+      totalDistance && totalTime
+        ? Number((totalDistance / totalTime).toFixed(2) || 0)
+        : 0;
+    return {
+      totalDistance,
+      totalTime,
+      averageVelocity,
+    };
   }
 
   async getTraveledDistanceAndTime(license: string): Promise<{
@@ -267,20 +299,6 @@ export class TrackingService {
       },
     ];
     const result = await this.trackingModel.aggregate<any>(pipeline);
-    const coordinates = result[0].coordinates.map((elem) => elem.coordinates);
-    const timestamps = result[0].coordinates.map((elem) => elem.createdAt);
-    const totalDistance: any =
-      this.calculateTotalDistance(coordinates).toFixed(2);
-    const totalTime =
-      this.calculateTimeDifferenceInSeconds(timestamps).toFixed(2);
-    const averageVelocity = (
-      totalDistance / this.calculateTimeDifferenceInSeconds(timestamps)
-    ).toFixed(2);
-    return {
-      maintenanceLogs,
-      totalDistance: Number(totalDistance) || 0,
-      totalTime: Number(totalTime) || 0,
-      averageVelocity: Number(averageVelocity) || 0,
-    };
+    return { maintenanceLogs, ...this.getFinalizedData(result) };
   }
 }
